@@ -3,3 +3,4 @@ env
 */.pytest_cache
 */.git.txt
 .vscode/settings.json
+.pytest_cache
