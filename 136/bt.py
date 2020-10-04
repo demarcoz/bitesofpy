@@ -38,14 +38,55 @@ blood_type_text = {
 
 # complete :
 def check_bt(donor, recipient):
-    """ Checks red blood cell compatibility based on 8 blood types
-        Args:
-        donor (int | str | Bloodtype): red blood cell type of the donor
-        recipient (int | str | Bloodtype): red blood cell type of the recipient
-        Returns:
-        bool: True for compatability, False otherwise.
+    """Checks red blood cell compatibility based on 8 blood types
+    Args:
+    donor (int | str | Bloodtype): red blood cell type of the donor
+    recipient (int | str | Bloodtype): red blood cell type of the recipient
+    Returns:
+    bool: True for compatability, False otherwise.
     """
-    pass
+
+    if isinstance(donor, str):
+        try:
+            donor = blood_type_text[donor].value
+        except:
+            raise ValueError
+
+    if isinstance(recipient, str):
+        try:
+            recipient = blood_type_text[recipient].value
+        except:
+            raise ValueError
+
+    if isinstance(donor, Bloodtype):
+        donor = donor.value
+
+    if isinstance(recipient, Bloodtype):
+        recipient = recipient.value
+
+    if not isinstance(donor, int) or not isinstance(recipient, int):
+        raise TypeError
+
+    if donor < 0 or donor > 7:
+        raise ValueError
+
+    if recipient < 0 or recipient > 7:
+        raise ValueError
+
+    if donor == 0 or recipient == 7:
+        return True
+
+    if donor == recipient:
+        return True
+
+    x = _particular_antigen_comp(donor, recipient)
+
+    if x == (0, 0, 1) or x == (0, 1, 0) or x == (1, 0, 0):
+        return True
+
+    if sum(x) == 3:
+        return True
+    return False
 
 
 # hint
@@ -53,7 +94,7 @@ def _particular_antigen_comp(donor: int, recipient: int) -> tuple:
     """Returns a particalar antigen compatibility, where each tuple member
     marks a compatibility for a particular antigen  (A, B, Rh-D).
     If tuple member is non-negative there is a compatibility.
-    For red blood cell compatibility is required that 
+    For red blood cell compatibility is required that
     all tuple members are non-negative (i.e. compatibility for all 3 antigens).
     0- bloodtype is represented as 0 ; AB+ is represented as 7; see Bloodtype enum
     Examples:
