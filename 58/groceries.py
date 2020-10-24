@@ -101,10 +101,7 @@ def handle_args(args=None, cart=None):
         cart.search(args.search[0])
     
     if args.add:
-        if args.add[2] == "True":
-            craving = True
-        else:
-            craving = False
+        craving = True if args.add[2] == "True" else False
         article = Item(
             product=args.add[0],
             price=int(args.add[1]),
