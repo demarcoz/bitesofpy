@@ -30,4 +30,4 @@ def test_missing_argument():
 
 def test_valueerror():
     with pytest.raises(ValueError):
-        list_to_decimal(["1"])\
+        list_to_decimal(["1"])
