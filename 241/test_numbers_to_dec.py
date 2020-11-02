@@ -21,3 +21,13 @@ def test_list_to_decimal_valueerror():
 def test_list_to_decimal_typeeror():
     with pytest.raises(TypeError):
         list_to_decimal([True, 6])
+
+
+def test_missing_argument():
+    with pytest.raises(TypeError):
+        list_to_decimal()
+
+
+def test_valueerror():
+    with pytest.raises(ValueError):
+        list_to_decimal(["1"])\
