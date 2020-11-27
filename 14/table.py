@@ -7,21 +7,7 @@ awake = [True, False] * 3
 SEPARATOR = ' | '
 
 
-def generate_table(names, aliases=None, points=None, awake=None):
-    data = []
-    if awake:
-        for index, name in enumerate(names):
-            record = SEPARATOR.join([names[index], aliases[index], str(points[index]), str(awake[index])])
-            data.append(record)
-        return data
-    if points:
-        for index, name in enumerate(names):
-            record = SEPARATOR.join([names[index], aliases[index], str(points[index])])
-            data.append(record)
-        return data
-    if aliases:
-        for index, name in enumerate(names):
-            record = SEPARATOR.join([names[index], aliases[index]])
-            data.append(record)
-        return data
-    return names
+def generate_table(*sequences):
+    for seq in zip(*sequences):
+        seq = [str(val) for val in seq]
+        yield SEPARATOR.join(seq)
